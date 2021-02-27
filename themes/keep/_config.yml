@@ -2,9 +2,9 @@
 #  Your basic info
 # ---------------------------------------------------------------------------------------
 base_info:
-  title: Keep Theme
-  author: Keep Team
-  url: https://keep.xpoet.cn/
+  title: 你好啊 陌生人
+  author: PepsiLuvCoco
+  url: https://newwangzhicheng.github.io/
 
 
 # ---------------------------------------------------------------------------------------
@@ -15,10 +15,10 @@ style:
   primary_color: '#0066CC'
 
   # Avatar (You can use local image or image external link)
-  avatar: /images/avatar.svg
+  avatar: /images/cute.jpeg
 
   # Favicon (You can use local image or image external link)
-  favicon: /images/logo.svg
+  favicon: /images/cute.jpeg
 
   # Article image align position, value: left | center
   article_img_align: left
@@ -32,27 +32,27 @@ style:
   # Mouse hover
   hover:
     shadow: false   # shadow effect when the mouse hover
-    scale: false    # scale effect when the mouse hover
+    scale: true    # scale effect when the mouse hover
 
   # First screen
   first_screen:
-    enable: false
+    enable: true
     background_img: /images/bg.svg   # You can use local image or image external link
-    description: Keep writing and Keep loving.
+    description: Try to keep coding.
 
   # Scroll style settings
   scroll:
     progress_bar:
-      enable: false
+      enable: true
     percent:
-      enable: false
+      enable: true
 
 
 # ---------------------------------------------------------------------------------------
 # Social contact link
 # ---------------------------------------------------------------------------------------
 social_contact:
-  enable: false
+  enable: true
   links:
     github:          # your GitHub URL
     weixin:          # your WeChat QR-Code URL
@@ -61,7 +61,7 @@ social_contact:
     zhihu:           # your ZhiHu URL
     twitter:         # your twitter URL
     facebook:        # your facebook URL
-    email:           # your email
+    email: newwangzhicheng@hotmail.com          # your email
 
 
 # ---------------------------------------------------------------------------------------
@@ -83,10 +83,10 @@ menu:
 # ---------------------------------------------------------------------------------------
 home_article:
   category:
-    enable: false     # show category in home page article block
+    enable: true     # show category in home page article block
     limit: 3          # max number of categories shown in home page article block
   tag:
-    enable: false     # show tags in home page article block
+    enable: true     # show tags in home page article block
     limit: 5          # max number of tags shown in home page article block
 
 
@@ -98,9 +98,9 @@ post:
   # Dependencies: hexo-wordcount (npm install hexo-wordcount)
   # See: https://github.com/willin/hexo-wordcount
   word_count:
-    enable: false
-    wordcount: false  # word count, one article
-    min2read: false   # time to read, one article
+    enable: true
+    wordcount: true  # word count, one article
+    min2read: true   # time to read, one article
 
   # Author label
   author_label:
@@ -114,24 +114,24 @@ post:
 # Code copy
 # ---------------------------------------------------------------------------------------
 code_copy:
-  enable: false
-  style: default        # values: default | mac
+  enable: true
+  style: mac        # values: default | mac
 
 
 # ---------------------------------------------------------------------------------------
 # Table of Contents in the Sidebar
 # ---------------------------------------------------------------------------------------
 toc:
-  enable: false
+  enable: true
 
   # Automatically add list number to toc.
-  number: false
+  number: true
 
   # If true, all level of TOC in a post will be displayed, rather than the activated part of it.
-  expand_all: false
+  expand_all: true
 
   # If true, open TOC every time when you enter the article page
-  init_open: false
+  init_open: true
 
 
 # ---------------------------------------------------------------------------------------
@@ -148,10 +148,10 @@ website_count:
   # busuanzi
   # See: http://ibruce.info/2015/04/04/busuanzi/
   busuanzi_count:
-    enable: false
-    site_uv: false
-    site_pv: false
-    page_pv: false
+    enable: true
+    site_uv: true
+    site_pv: true
+    page_pv: true
 
 
 # ---------------------------------------------------------------------------------------
@@ -160,23 +160,25 @@ website_count:
 # See: https://github.com/theme-next/hexo-generator-searchdb
 # ---------------------------------------------------------------------------------------
 local_search:
-  enable: false
-  preload: false     # Preload the search data when the page loads
+  enable: true
+  trigger: auto
+  unescape: false
+  preload: true     # Preload the search data when the page loads
 
 
 # ---------------------------------------------------------------------------------------
 # Comment plugin
 # ---------------------------------------------------------------------------------------
 comment:
-  enable: false
+  enable: true
   use: valine  # values: valine | gitalk | twikoo
 
   # Valine
   # See: https://github.com/xCss/Valine
   valine:
-    appid:                # your leancloud application appid
-    appkey:               # your leancloud application appkey
-    placeholder:          # your placeholder
+    appid: 44nsnXzkHuWasf6gWKb8P15X-gzGzoHsz               # your leancloud application appid
+    appkey: J27D9TyBbUCeVAt9sR9CvxLT              # your leancloud application appkey
+    placeholder: 轻喷👹         # your placeholder
 
   # Gitalk
   # See: https://github.com/gitalk/gitalk
@@ -213,21 +215,21 @@ lazyload:
 # CDN
 # ---------------------------------------------------------------------------------------
 cdn:
-  enable: false
+  enable: true
 
 
 # ---------------------------------------------------------------------------------------
 # PJAX
 # ---------------------------------------------------------------------------------------
 pjax:
-  enable: false
+  enable: true
 
 
 # ---------------------------------------------------------------------------------------
 # Footer settings
 # ---------------------------------------------------------------------------------------
 footer:
-  since: 2020      # the starting year of your website, Can be null
+  since: 2019      # the starting year of your website, Can be null
   icp:             # ICP record number of your website, Can be null
 
 
