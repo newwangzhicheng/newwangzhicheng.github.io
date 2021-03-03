@@ -15,10 +15,10 @@ style:
   primary_color: '#0066CC'
 
   # Avatar (You can use local image or image external link)
-  avatar: /images/cute.jpeg
+  avatar: /images/cute.jpg
 
   # Favicon (You can use local image or image external link)
-  favicon: /images/cute.jpeg
+  favicon: /images/cute2.jpg
 
   # Article image align position, value: left | center
   article_img_align: left
