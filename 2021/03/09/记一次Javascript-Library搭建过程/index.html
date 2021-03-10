@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="PepsiLuvCoco">
+    
+    <title>
+        
+            记一次Javascript-Library搭建过程 |
+        
+        你好啊 陌生人
+    </title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="shortcut icon" href="/images/cute2.jpg">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.1/source/css/font-awesome.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh","path":"search.xml"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/cute.jpg","favicon":"/images/cute2.jpg","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"Try to keep coding."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"trigger":"auto","unescape":false,"preload":true},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":true},"lazyload":{"enable":false},"version":"3.4.1"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fas fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            <a class="logo-title" href="/">
+                你好啊 陌生人
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                HOME
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                ARCHIVES
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">HOME</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">ARCHIVES</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">记一次Javascript-Library搭建过程</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/cute.jpg">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">PepsiLuvCoco</span>
+                        
+                            <span class="author-label">Lv2</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;2021-03-09 10:55:43
+    </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/">前端工程化</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <p>随着前端工程化的普及使用，构建一个现代的JavaScript库是愈发复杂，恰好有构建一个js库的需求，现在就从零开始搭建。<br>考虑到搭建js库大家都推荐rollup，一是自带tree-shaking，二是打包出来的代码更简洁，冗余代码少。但是webpack已经是前端必学的打包工具了，本次搭建先使用webpack，后续考虑使用rollup重新搭建并做对比。</p>
+<h4 id="前端工程化的工具"><a href="#前端工程化的工具" class="headerlink" title="前端工程化的工具"></a>前端工程化的工具</h4><ul>
+<li>打包工具：webpack</li>
+<li>js编译器：babel</li>
+<li>代码规范：eslint</li>
+<li>单元测试：jest</li>
+<li>API文档生成：jsdoc</li>
+</ul>
+<h4 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h4><img src="/2021/03/09/%E8%AE%B0%E4%B8%80%E6%AC%A1Javascript-Library%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B/%E7%9B%AE%E5%BD%95.png" class="">
+
+<p>这是目录结构，每个文件夹代表不同的职责：</p>
+<ul>
+<li>build：这里存储babel转化好的代码，待npm包发布后commonjs调用该部分的代码，这是经过转化但是未压缩的代码。jsdoc生成的api文档也暂存在这里</li>
+<li>config：这里存储jsdoc的个性化配置脚本和文档生成文件，如果只是简单的生成jsdoc文档这里可以忽略</li>
+<li>demo：这是可以写API简单应用的示例，告诉使用者如何使用</li>
+<li>dist：webpack+babel生成的浏览器可运行的amd类型的打包好的代码存储在这里</li>
+<li>src：这里是源码</li>
+<li>test：一个合格的库必须要有完备的测试用例，用起来，这将是你走向单元测试的第一步</li>
+</ul>
+<h4 id="起步：创建npm项目"><a href="#起步：创建npm项目" class="headerlink" title="起步：创建npm项目"></a>起步：创建npm项目</h4><p>首先创建一个npm项目，填写好项目的name，description等。。。。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm init</span><br></pre></td></tr></table></figure>
+
+<h4 id="安装eslint"><a href="#安装eslint" class="headerlink" title="安装eslint"></a>安装eslint</h4><p>先全局安装一个eslint包，也可以使用npx命令，在当前目录下创建eslint配置文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// npx eslint --init 或者下面这两行</span><br><span class="line">npm install eslint -g</span><br><span class="line">eslint --init</span><br></pre></td></tr></table></figure>
+
+<p>具体的配置可按提示一步一步选择，待选择完成后eslint会安装对应的npm包和插件，并配置到package.json的<code>devDependenceies</code>中。我这里使用了import的导入方式，airbnb的代码规范，最终会添加下面三个依赖。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&quot;devDependencies&quot;: &#123;</span><br><span class="line">    &quot;eslint&quot;: &quot;^7.21.0&quot;,</span><br><span class="line">    &quot;eslint-config-airbnb-base&quot;: &quot;^14.2.1&quot;,</span><br><span class="line">    &quot;eslint-plugin-import&quot;: &quot;^2.22.1&quot;,</span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
+
+<p>还会在项目根目录生成eslint配置文件.eslintrc.js（JSON或JS文件，我这里JS），可以看到配置中env浏览器环境和node环境都是允许的，并且可以lint最新的es2021代码规范；</p>
+<p>extends里面是我们所使用的代码规范标准，我这里选择的airbnb（视个人喜好，项目要求而定）</p>
+<p>parserOptions可以定制支持的js语言，默认支持ES5的代码，<code>ecmaVersion</code>可以将支持的环境提升到12，<code>sourceType</code>源码类型默认是script，如果是esm类型可以将其改成<code>module</code>，</p>
+<p>rules允许自定义eslint部分规则</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">module.exports &#x3D; &#123;</span><br><span class="line">  env: &#123;</span><br><span class="line">    browser: true,</span><br><span class="line">    es2021: true,</span><br><span class="line">    node: true,</span><br><span class="line">  &#125;,</span><br><span class="line">  extends: [</span><br><span class="line">    &#39;airbnb-base&#39;,</span><br><span class="line">  ],</span><br><span class="line">  parserOptions: &#123;</span><br><span class="line">    ecmaVersion: 12,</span><br><span class="line">    sourceType: &#39;module&#39;,</span><br><span class="line">  &#125;,</span><br><span class="line">  rules: &#123;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>到这里，eslint的基本配置就好了，但是eslint不认识的代码我们还需要配合babel来使用，别急，接下来还会再见。</p>
+<h4 id="安装babel"><a href="#安装babel" class="headerlink" title="安装babel"></a>安装babel</h4><p>如今webpack已经遇到了诸多对手：rollup，parcel甚至是vite；但是babel却鲜有对手，所以必须要学会babel的配置。</p>
+<p>此项目安装babel的目标是只将源码babel转换而不用webpack打包，这部分能用使用commonjs或esm的形式引入即可。</p>
+<p>babel主要有2个配置：preset和plugins</p>
+<p>首先安装babel的核心依赖</p>
+<ul>
+<li><code>@babel/core</code>是babel的核心，它将高版本的ES代码转化成低版本的ES代码</li>
+<li><code>@babel/cli</code>允许我们以命令行的方式运行babel</li>
+<li><code>@babel/preset-env</code>是babel预设的一组插件，它可以根据targets智能地为浏览器不支持的方法polyfill，配合<code>useBuiltIns</code>可以按需加载</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save-dev @babel/core @babel/cli @babel/preset-env</span><br></pre></td></tr></table></figure>
+
+<p>然后手动创建一个babel的配置文件babel.config.json，做一些基础的设置，</p>
+<p>这里的targets指定各个浏览器的版本，他们不支持的语法由babel负责转换，<code>useBuiltIns:usage</code>指示babel只按需加载用到的polyfill而无需将所有polyfill全部载入；</p>
+<p><code>corejs</code>指示corejs的次要版本，当<code>@babel/preset-env</code>中的corejs不支持某种polyfill时便可以使用指定版本的polyfill；corejs默认不对提案做polyfill，所以这是可选项，这里我默认把它加上（我也不知道有什么影响，先以防万一用到）</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;presets&quot;</span>: [</span><br><span class="line">    [</span><br><span class="line">      <span class="string">&quot;@babel/env&quot;</span>,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="attr">&quot;targets&quot;</span>: &#123;</span><br><span class="line">          <span class="attr">&quot;edge&quot;</span>: <span class="string">&quot;17&quot;</span>,</span><br><span class="line">          <span class="attr">&quot;firefox&quot;</span>: <span class="string">&quot;60&quot;</span>,</span><br><span class="line">          <span class="attr">&quot;chrome&quot;</span>: <span class="string">&quot;67&quot;</span>,</span><br><span class="line">          <span class="attr">&quot;safari&quot;</span>: <span class="string">&quot;11.1&quot;</span>,</span><br><span class="line">          <span class="attr">&quot;node&quot;</span>: <span class="string">&quot;current&quot;</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">&quot;useBuiltIns&quot;</span>: <span class="string">&quot;usage&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;corejs&quot;</span>: &#123;</span><br><span class="line">          <span class="attr">&quot;version&quot;</span>: <span class="string">&quot;3.9.1&quot;</span>,</span><br><span class="line">          <span class="attr">&quot;proposals&quot;</span>: <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注：</p>
+<p>写JavaScript库时建议用<code>@babel/plugin-transform-runitme + @babel/runtime-corejs3</code>，然后在babel.config.json中设置<code>&quot;useBuiltIns&quot;: false</code>然后删除紧接着的corejs设置；</p>
+<p>具体这两种poly fill的差别可以查看以下两个博文，非常仔细且易于理解</p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://blog.liuyunzhuge.com/2019/09/04/babel%E8%AF%A6%E8%A7%A3%EF%BC%88%E4%BA%94%EF%BC%89-polyfill%E5%92%8Cruntime/" >babel详解（五）:polyfill和runtime<i class="fas fa-external-link-alt"></i></a></p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000021188054" >@babel/preset-env 与@babel/plugin-transform-runtime 使用及场景区别<i class="fas fa-external-link-alt"></i></a></p>
+<p>首先安装这两个插件：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install --save-dev @babel/plugin-transform-runitme</span><br><span class="line">npm install --save @babel/runtime-corejs3</span><br></pre></td></tr></table></figure>
+
+<p>在plugins中添加插件<code>@babel/plugin-transform-runitme</code>，这里的设置<code>&quot;corejs&quot;: 3</code>告诉babel我要使用``@babel/runtime-corejs3`来为我polyfill啦</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&quot;plugins&quot;: [</span><br><span class="line">  [<span class="string">&quot;@babel/plugin-transform-runtime&quot;</span>,</span><br><span class="line">    &#123;</span><br><span class="line">    	<span class="attr">&quot;corejs&quot;</span>: <span class="number">3</span></span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p>最后别忘了提醒开发者在自己的项目中安装<code>@babel/runtime-corejs3</code>，可以在<code>perDependencies</code>添加。</p>
+<h4 id="eslint-babel：支持最新语法的eslint"><a href="#eslint-babel：支持最新语法的eslint" class="headerlink" title="eslint + babel：支持最新语法的eslint"></a>eslint + babel：支持最新语法的eslint</h4><p>到这里你已经可以发现，当你写最新的代码的时候，比如类私有域（最新的提案）的时候eslint提示暂不支持，这时就需要babel来帮忙，将eslint的解析器设置为<code>@babel/parser</code>让eslint支持babel合法的语法。</p>
+<p>首先安装支持的js类私有域的babel插件和babel-eslint解析器</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save-dev @babel/eslint-parser @babel/plugin-proposal-class-properties @babel/plugin-proposal-private-methods</span><br></pre></td></tr></table></figure>
+
+<p>然后在eslint配置文件（.eslintrc.js）中添加插件和解析器</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">parser: <span class="string">&#x27;@babel/parser&#x27;</span>,</span><br><span class="line">plugins: [<span class="string">&#x27;classPrivateProperties&#x27;</span>, <span class="string">&#x27;classPrivateMethods&#x27;</span>],</span><br></pre></td></tr></table></figure>
+
+<p>同样的在babel也需要转换这部分代码，所以在babel.config.json也需要添加对应的插件</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&quot;plugins&quot;: [</span><br><span class="line">  &quot;@babel/plugin-proposal-class-properties&quot;,</span><br><span class="line">  <span class="string">&quot;@babel/plugin-proposal-private-methods&quot;</span></span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p>可以参考一下此时完整的eslint文件</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  env: &#123;</span><br><span class="line">    browser: <span class="literal">true</span>,</span><br><span class="line">    es2021: <span class="literal">true</span>,</span><br><span class="line">    node: <span class="literal">true</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="keyword">extends</span>: [</span><br><span class="line">    <span class="string">&#x27;airbnb-base&#x27;</span>,</span><br><span class="line">  ],</span><br><span class="line">  parser: <span class="string">&#x27;@babel/parser&#x27;</span>,</span><br><span class="line">  plugins: [<span class="string">&#x27;classPrivateProperties&#x27;</span>, <span class="string">&#x27;classPrivateMethods&#x27;</span>],</span><br><span class="line">  parserOptions: &#123;</span><br><span class="line">    ecmaVersion: <span class="number">12</span>,</span><br><span class="line">    sourceType: <span class="string">&#x27;module&#x27;</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  rules: &#123;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>此时我们的eslint和babel都支持类私有域的lint和转换了</p>
+<h4 id="webpack"><a href="#webpack" class="headerlink" title="webpack"></a>webpack</h4><p>如今webpack + babel已经是很多npm项目的标配了，</p>
+<p>这里安装webpack的目的是将我们的源码以umd的形式打包成一个文件，方便浏览器引入；同时也支持amd和commonjs的方式引入。</p>
+<p>首先安装webpack的核心包</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save-dev webpack webpack-cli</span><br></pre></td></tr></table></figure>
+
+<p>如果你需要打包的同时分析打包文件各个依赖的大小，可以安装<code>webpack-bundle-analyzer</code>这个插件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save-dev webpack-bundle-analyzer</span><br></pre></td></tr></table></figure>
+
+<p>为了让我们的webpack在打包的时候自动使用babel转译js代码，需要安装一个babel-loader，如何使用我们将稍后使用</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save-dev babel-loader</span><br></pre></td></tr></table></figure>
+
+<p>然后手动创建一个webpack.config.js</p>
+<p>配置如下，我们稍后做一下讲解</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> BundleAnalyzerPlugin = <span class="built_in">require</span>(<span class="string">&#x27;webpack-bundle-analyzer&#x27;</span>).BundleAnalyzerPlugin;</span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  entry: <span class="string">&#x27;./src/hxol/index.js&#x27;</span>,</span><br><span class="line">  output: &#123;</span><br><span class="line">    path: path.resolve(__dirname, <span class="string">&#x27;dist&#x27;</span>),</span><br><span class="line">    filename: <span class="string">&#x27;hxol.js&#x27;</span>,</span><br><span class="line">    library: <span class="string">&#x27;hxol&#x27;</span>,</span><br><span class="line">    libraryTarget: <span class="string">&#x27;umd&#x27;</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="built_in">module</span>: &#123;</span><br><span class="line">    rules: [</span><br><span class="line">      &#123;</span><br><span class="line">        test: <span class="regexp">/\.m?js/</span>,</span><br><span class="line">        exclude: <span class="regexp">/(node_modules)/</span>,</span><br><span class="line">        use: &#123;</span><br><span class="line">          loader: <span class="string">&#x27;babel-loader&#x27;</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">      &#125;,</span><br><span class="line">    ],</span><br><span class="line">  &#125;,</span><br><span class="line">  plugins: [</span><br><span class="line">    <span class="keyword">new</span> BundleAnalyzerPlugin(),</span><br><span class="line">  ],</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>entry是程序的入口，很好理解；我们可以将我们需要打包的文件在index.js中import再export出来；webpack会根据依赖自动打包</li>
+<li>output是文件的输出位置和格式<ul>
+<li>path指定输出路径</li>
+<li>filename指示输出文件名</li>
+<li>library指示我们暴露的全局变量的名称</li>
+<li>libraryTarget则指示我们输出的类型，这里使用umd，即amd，cmd，浏览器都可以导入</li>
+</ul>
+</li>
+<li>module指导webpack如何处理不同的模块，上面的规则规定我们转化js/mjs文件，排除node_modules文件夹并使用babel-loader转译</li>
+<li>plugins则是我们使用webpack可能会用的插件，这个<code>webpack-bundle-analyzer</code>可以在打包的时候生成一个各个依赖占用大小的报告</li>
+</ul>
+<h4 id="jest-单元测试"><a href="#jest-单元测试" class="headerlink" title="jest 单元测试"></a>jest 单元测试</h4><p>jest进行单元测试就比较简单了，它会自动寻找babel的配置文件并在测试的时候使用babel转译代码，但是jest会自动不转译node_modules中的代码，有转译需求的小伙伴创建一个jest.config.js配置文件，配置如下即可</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  <span class="comment">// 转换node_modules中的代码</span></span><br><span class="line">  transformIgnorePatterns: [],</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>当然jest很智能，但它发现babel有test相关的环境时会优先使用test环境去使用babel转译，这样我们就可以为jest定制一个babel配置，这不是必须的</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;env&quot;</span>: &#123;</span><br><span class="line">    <span class="string">&quot;test&quot;</span>: &#123;</span><br><span class="line">      <span class="string">&quot;presets&quot;</span>: [</span><br><span class="line">        [</span><br><span class="line">          <span class="string">&quot;@babel/env&quot;</span>,</span><br><span class="line">          &#123;</span><br><span class="line">            <span class="string">&quot;targets&quot;</span>: &#123;</span><br><span class="line">              <span class="string">&quot;node&quot;</span>: <span class="string">&quot;current&quot;</span></span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="string">&quot;useBuiltIns&quot;</span>: <span class="string">&quot;usage&quot;</span>,</span><br><span class="line">            <span class="string">&quot;corejs&quot;</span>: <span class="string">&quot;3.9.1&quot;</span></span><br><span class="line">          &#125;</span><br><span class="line">        ]</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h4><p>最后所有插件都安装好了，我们可以在src中写源码了，然后进行转译，打包，api生成。可以在package.json中配置这些脚本。</p>
+<ul>
+<li>转译：<code>babel your/src/path --out-dir your/dist/path</code>，babel会自动使用目录下的babel配置，这是npm publish后node项目引入时的文件地址</li>
+<li>打包：webpack –mode=production，webpack会自动使用目录下的webpack配置，这是浏览器可以引用的代码，当然node项目也可以引入</li>
+<li>生成API：jsdoc</li>
+<li>测试：jest，同样的，会自动使用jest配置文件</li>
+</ul>
+<h4 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h4><p>书写百变，其义自现。前端工程化的配置光看只能理解表面，多实践才能记住。</p>
+
+        </div>
+
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2021/03/10/%E9%80%92%E5%BD%92-%E5%AD%97%E8%8A%82206%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">递归-字节206反转链表</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2021/03/06/13-%E7%BD%97%E9%A9%AC%E6%95%B0%E5%AD%97%E8%BD%AC%E6%95%B4%E6%95%B0/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">13.罗马数字转整数</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;Comments</i>
+    </div>
+    
+
+        
+            
+    <div class="valine-container">
+        <script data-pjax
+                src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+        <div id="vcomments"></div>
+        <script data-pjax>
+            function loadValine() {
+                new Valine({
+                    el: '#vcomments',
+                    appId: '44nsnXzkHuWasf6gWKb8P15X-gzGzoHsz',
+                    appKey: 'J27D9TyBbUCeVAt9sR9CvxLT',
+                    meta: ['nick', 'mail', 'link'],
+                    avatar: 'wavatar',
+                    enableQQ: true,
+                    placeholder: '轻喷👹',
+                    lang: 'zh'.toLowerCase()
+                });
+
+                function getAuthor(language) {
+                    switch (language) {
+                        case 'en':
+                            return 'Author';
+                        case 'zh-CN':
+                            return '博主';
+                        default:
+                            return 'Master';
+                    }
+                }
+
+                // Add "Author" identify
+                const getValineDomTimer = setInterval(() => {
+                    const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
+                    if (vcards.length > 0) {
+                        let author = 'PepsiLuvCoco';
+
+                        if (author) {
+                            for (let vcard of vcards) {
+                                const vnick_dom = vcard.querySelector('.vhead .vnick');
+                                const vnick = vnick_dom.innerHTML;
+                                if (vnick === author) {
+                                    vnick_dom.innerHTML = `${vnick} <span class="author">${getAuthor(KEEP.hexo_config.language)}</span>`
+                                }
+                            }
+                        }
+                        clearInterval(getValineDomTimer);
+                    } else {
+                        clearInterval(getValineDomTimer);
+                    }
+                }, 2000);
+            }
+
+            if ('true') {
+                const loadValineTimeout = setTimeout(() => {
+                    loadValine();
+                    clearTimeout(loadValineTimeout);
+                }, 1000);
+            } else {
+                window.addEventListener('DOMContentLoaded', loadValine);
+            }
+        </script>
+    </div>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2019</span>&nbsp;-&nbsp;
+            
+            2021&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">PepsiLuvCoco</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalview&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.1</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E7%9A%84%E5%B7%A5%E5%85%B7"><span class="nav-number">1.</span> <span class="nav-text">前端工程化的工具</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%AE%E5%BD%95"><span class="nav-number">2.</span> <span class="nav-text">目录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B5%B7%E6%AD%A5%EF%BC%9A%E5%88%9B%E5%BB%BAnpm%E9%A1%B9%E7%9B%AE"><span class="nav-number">3.</span> <span class="nav-text">起步：创建npm项目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%89%E8%A3%85eslint"><span class="nav-number">4.</span> <span class="nav-text">安装eslint</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%89%E8%A3%85babel"><span class="nav-number">5.</span> <span class="nav-text">安装babel</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#eslint-babel%EF%BC%9A%E6%94%AF%E6%8C%81%E6%9C%80%E6%96%B0%E8%AF%AD%E6%B3%95%E7%9A%84eslint"><span class="nav-number">6.</span> <span class="nav-text">eslint + babel：支持最新语法的eslint</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#webpack"><span class="nav-number">7.</span> <span class="nav-text">webpack</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#jest-%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95"><span class="nav-number">8.</span> <span class="nav-text">jest 单元测试</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8"><span class="nav-number">9.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%80%E5%90%8E"><span class="nav-number">10.</span> <span class="nav-text">最后</span></a></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.1/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.1/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.1/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.1/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.1/source/js/dark-light-toggle.js"></script>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.1/source/js/local-search.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.1/source/js/code-copy.js"></script>
+
+
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.1/source/js/left-side-toggle.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.1/source/js/libs/anime.min.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.1/source/js/toc.js"></script>
+    
+</div>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.1/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        const pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

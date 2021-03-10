@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>第一篇文章</title>
+    <url>/2021/02/26/%E7%AC%AC%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0/</url>
+    <content><![CDATA[<p>这是一张图片</p>
+<img src="/2021/02/26/%E7%AC%AC%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0/example.jpeg" class="" title="this is an example image">]]></content>
+  </entry>
+  <entry>
+    <title>13.罗马数字转整数</title>
+    <url>/2021/03/06/13-%E7%BD%97%E9%A9%AC%E6%95%B0%E5%AD%97%E8%BD%AC%E6%95%B4%E6%95%B0/</url>
+    <content><![CDATA[<p>本题思路简单，抓住罗马数字高位&gt;=低位用加法；高位&lt;低位用减法的本质能更快解题</p>
+<img src="/2021/03/06/13-%E7%BD%97%E9%A9%AC%E6%95%B0%E5%AD%97%E8%BD%AC%E6%95%B4%E6%95%B0/%E7%BD%97%E9%A9%AC%E6%95%B0%E5%AD%97%E8%BD%AC%E6%95%B4%E6%95%B0.jpg" class="">]]></content>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>7.整数反转</title>
+    <url>/2021/03/03/7-%E6%95%B4%E6%95%B0%E5%8F%8D%E8%BD%AC/</url>
+    <content><![CDATA[<h4 id="leetcode-字节-7-整数反转"><a href="#leetcode-字节-7-整数反转" class="headerlink" title="leetcode 字节 7.整数反转"></a>leetcode 字节 7.整数反转</h4><p>这题第三解取自leetcode大神，位运算符既可以实现类似于C中的整除运算，又可数字判断是否溢出32位</p>
+
+
+	<div class="row">
+    <embed src="7.整数反转.pdf" width="100%" height="550" type="application/pdf">
+	</div>
+
+
+]]></content>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>babel+eslint配置使用私有变量和私有属性</title>
+    <url>/2021/03/03/babel-eslint%E9%85%8D%E7%BD%AE%E4%BD%BF%E7%94%A8%E7%A7%81%E6%9C%89%E5%8F%98%E9%87%8F%E5%92%8C%E7%A7%81%E6%9C%89%E5%B1%9E%E6%80%A7/</url>
+    <content><![CDATA[<p>在使用eslint为我的工程规范代码的时候，发现类私有域<code>#</code>还没有得到支持；好吧，它还在草案阶段。</p>
+<img src="/2021/03/03/babel-eslint%E9%85%8D%E7%BD%AE%E4%BD%BF%E7%94%A8%E7%A7%81%E6%9C%89%E5%8F%98%E9%87%8F%E5%92%8C%E7%A7%81%E6%9C%89%E5%B1%9E%E6%80%A7/eslint%E6%8A%A5%E9%94%99.png" class="" title="eslint报错">
+<p>所以我们首先要安装一个<code>npm i --save-dev @babel/eslint-parser</code>，它可以为eslint还不支持的语法提供支持，安装完后在eslint配置文件中设置<code>parser: &#39;@babel/parser&#39;</code>（我这里时.eslintrc.js）</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  env: &#123;</span><br><span class="line">    browser: <span class="literal">true</span>,</span><br><span class="line">    es2021: <span class="literal">true</span>,</span><br><span class="line">    node: <span class="literal">true</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="keyword">extends</span>: [</span><br><span class="line">    <span class="string">&#x27;airbnb-base&#x27;</span>,</span><br><span class="line">  ],</span><br><span class="line">  parser: <span class="string">&#x27;@babel/parser&#x27;</span>,</span><br><span class="line">  parserOptions: &#123;</span><br><span class="line">    ecmaVersion: <span class="number">12</span>,</span><br><span class="line">    sourceType: <span class="string">&#x27;module&#x27;</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  rules: &#123;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>到这里，babel已经能帮助我们的eslint规范它还不支持的语言特性，但是我们提到JavaScript的类私有域还在提案阶段，babel的preset-env还没有支持呢！所有需要安装两个babel插件</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm i --save-dev @babel/plugin-proposal-class-properties @babel/plugin-proposal-private-methods</span><br></pre></td></tr></table></figure>
+<p>然后在eslint配置文件添加<code>plugins: [&#39;classPrivateProperties&#39;, &#39;classPrivateMethods&#39;]</code>，至此报错消失，又可以愉快的使用类私有域了。<br> <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  env: &#123;</span><br><span class="line">    browser: <span class="literal">true</span>,</span><br><span class="line">    es2021: <span class="literal">true</span>,</span><br><span class="line">    node: <span class="literal">true</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="keyword">extends</span>: [</span><br><span class="line">    <span class="string">&#x27;airbnb-base&#x27;</span>,</span><br><span class="line">  ],</span><br><span class="line">  parser: <span class="string">&#x27;@babel/parser&#x27;</span>,</span><br><span class="line">  plugins: [<span class="string">&#x27;classPrivateProperties&#x27;</span>, <span class="string">&#x27;classPrivateMethods&#x27;</span>],</span><br><span class="line">  parserOptions: &#123;</span><br><span class="line">    ecmaVersion: <span class="number">12</span>,</span><br><span class="line">    sourceType: <span class="string">&#x27;module&#x27;</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  rules: &#123;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+]]></content>
+      <tags>
+        <tag>babel, eslint, 前端工程化</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>map+parseInt</title>
+    <url>/2021/03/03/map-parseInt/</url>
+    <content><![CDATA[<h1 id="对于-39-1-39-39-2-39-39-3-39-map-parseInt-的认知和理解"><a href="#对于-39-1-39-39-2-39-39-3-39-map-parseInt-的认知和理解" class="headerlink" title="对于[&#39;1&#39;, &#39;2&#39;, &#39;3&#39;].map(parseInt)的认知和理解"></a>对于<code>[&#39;1&#39;, &#39;2&#39;, &#39;3&#39;].map(parseInt)</code>的认知和理解</h1><h4 id="map"><a href="#map" class="headerlink" title="map"></a>map</h4><p>数组的map方法中的回调参数如下</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">array.map(<span class="function">(<span class="params">item, index, array</span>) =&gt;</span> &#123;&#125;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="parseInt"><a href="#parseInt" class="headerlink" title="parseInt"></a>parseInt</h4><p>parseInt将一个字符串（如果不是字符串，<code>tostring</code>转化为字符串）转换为一个number类型的整数，并可以指定这个字符串的进制；范围2-36，默认为10进制；<br>如果radix是0 or <code>undefined</code>，则string以<code>0x</code>, <code>0X</code>开头是16进制</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">parseInt</span>(string, radix = <span class="number">10</span>);</span><br></pre></td></tr></table></figure>
+<h4 id="理解"><a href="#理解" class="headerlink" title="理解"></a>理解</h4><p>上面的表达式实际上的调用是这样的</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">[<span class="string">&#x27;1&#x27;</span>, <span class="string">&#x27;2&#x27;</span>, <span class="string">&#x27;3&#x27;</span>].map(<span class="function">(<span class="params">item, index</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">parseInt</span>(item, index);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>结果是<code>[parseInt(&#39;1&#39;, 0), parseInt(&#39;2&#39;, 1), parseInt(&#39;3&#39;, 2)]</code>即为<code>[1, NaN, NaN]</code></p>
+<h4 id="进一步理解"><a href="#进一步理解" class="headerlink" title="进一步理解"></a>进一步理解</h4><p>可以看到题目的需求可能是循环遍历一个字符串数字，用<code>Number</code>可以满足需求</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="string">`[&#x27;1&#x27;, &#x27;2&#x27;, &#x27;3&#x27;].map(Number)`</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>记一次Javascript-Library搭建过程</title>
+    <url>/2021/03/09/%E8%AE%B0%E4%B8%80%E6%AC%A1Javascript-Library%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B/</url>
+    <content><![CDATA[<p>随着前端工程化的普及使用，构建一个现代的JavaScript库是愈发复杂，恰好有构建一个js库的需求，现在就从零开始搭建。<br>考虑到搭建js库大家都推荐rollup，一是自带tree-shaking，二是打包出来的代码更简洁，冗余代码少。但是webpack已经是前端必学的打包工具了，本次搭建先使用webpack，后续考虑使用rollup重新搭建并做对比。</p>
+<h4 id="前端工程化的工具"><a href="#前端工程化的工具" class="headerlink" title="前端工程化的工具"></a>前端工程化的工具</h4><ul>
+<li>打包工具：webpack</li>
+<li>js编译器：babel</li>
+<li>代码规范：eslint</li>
+<li>单元测试：jest</li>
+<li>API文档生成：jsdoc</li>
+</ul>
+<h4 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h4><img src="/2021/03/09/%E8%AE%B0%E4%B8%80%E6%AC%A1Javascript-Library%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B/%E7%9B%AE%E5%BD%95.png" class="">
+
+<p>这是目录结构，每个文件夹代表不同的职责：</p>
+<ul>
+<li>build：这里存储babel转化好的代码，待npm包发布后commonjs调用该部分的代码，这是经过转化但是未压缩的代码。jsdoc生成的api文档也暂存在这里</li>
+<li>config：这里存储jsdoc的个性化配置脚本和文档生成文件，如果只是简单的生成jsdoc文档这里可以忽略</li>
+<li>demo：这是可以写API简单应用的示例，告诉使用者如何使用</li>
+<li>dist：webpack+babel生成的浏览器可运行的amd类型的打包好的代码存储在这里</li>
+<li>src：这里是源码</li>
+<li>test：一个合格的库必须要有完备的测试用例，用起来，这将是你走向单元测试的第一步</li>
+</ul>
+<h4 id="起步：创建npm项目"><a href="#起步：创建npm项目" class="headerlink" title="起步：创建npm项目"></a>起步：创建npm项目</h4><p>首先创建一个npm项目，填写好项目的name，description等。。。。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm init</span><br></pre></td></tr></table></figure>
+
+<h4 id="安装eslint"><a href="#安装eslint" class="headerlink" title="安装eslint"></a>安装eslint</h4><p>先全局安装一个eslint包，也可以使用npx命令，在当前目录下创建eslint配置文件</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">// npx eslint --init 或者下面这两行</span><br><span class="line">npm install eslint -g</span><br><span class="line">eslint --init</span><br></pre></td></tr></table></figure>
+
+<p>具体的配置可按提示一步一步选择，待选择完成后eslint会安装对应的npm包和插件，并配置到package.json的<code>devDependenceies</code>中。我这里使用了import的导入方式，airbnb的代码规范，最终会添加下面三个依赖。</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">&quot;devDependencies&quot;: &#123;</span><br><span class="line">    &quot;eslint&quot;: &quot;^7.21.0&quot;,</span><br><span class="line">    &quot;eslint-config-airbnb-base&quot;: &quot;^14.2.1&quot;,</span><br><span class="line">    &quot;eslint-plugin-import&quot;: &quot;^2.22.1&quot;,</span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
+
+<p>还会在项目根目录生成eslint配置文件.eslintrc.js（JSON或JS文件，我这里JS），可以看到配置中env浏览器环境和node环境都是允许的，并且可以lint最新的es2021代码规范；</p>
+<p>extends里面是我们所使用的代码规范标准，我这里选择的airbnb（视个人喜好，项目要求而定）</p>
+<p>parserOptions可以定制支持的js语言，默认支持ES5的代码，<code>ecmaVersion</code>可以将支持的环境提升到12，<code>sourceType</code>源码类型默认是script，如果是esm类型可以将其改成<code>module</code>，</p>
+<p>rules允许自定义eslint部分规则</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">module.exports &#x3D; &#123;</span><br><span class="line">  env: &#123;</span><br><span class="line">    browser: true,</span><br><span class="line">    es2021: true,</span><br><span class="line">    node: true,</span><br><span class="line">  &#125;,</span><br><span class="line">  extends: [</span><br><span class="line">    &#39;airbnb-base&#39;,</span><br><span class="line">  ],</span><br><span class="line">  parserOptions: &#123;</span><br><span class="line">    ecmaVersion: 12,</span><br><span class="line">    sourceType: &#39;module&#39;,</span><br><span class="line">  &#125;,</span><br><span class="line">  rules: &#123;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>到这里，eslint的基本配置就好了，但是eslint不认识的代码我们还需要配合babel来使用，别急，接下来还会再见。</p>
+<h4 id="安装babel"><a href="#安装babel" class="headerlink" title="安装babel"></a>安装babel</h4><p>如今webpack已经遇到了诸多对手：rollup，parcel甚至是vite；但是babel却鲜有对手，所以必须要学会babel的配置。</p>
+<p>此项目安装babel的目标是只将源码babel转换而不用webpack打包，这部分能用使用commonjs或esm的形式引入即可。</p>
+<p>babel主要有2个配置：preset和plugins</p>
+<p>首先安装babel的核心依赖</p>
+<ul>
+<li><code>@babel/core</code>是babel的核心，它将高版本的ES代码转化成低版本的ES代码</li>
+<li><code>@babel/cli</code>允许我们以命令行的方式运行babel</li>
+<li><code>@babel/preset-env</code>是babel预设的一组插件，它可以根据targets智能地为浏览器不支持的方法polyfill，配合<code>useBuiltIns</code>可以按需加载</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install --save-dev @babel/core @babel/cli @babel/preset-env</span><br></pre></td></tr></table></figure>
+
+<p>然后手动创建一个babel的配置文件babel.config.json，做一些基础的设置，</p>
+<p>这里的targets指定各个浏览器的版本，他们不支持的语法由babel负责转换，<code>useBuiltIns:usage</code>指示babel只按需加载用到的polyfill而无需将所有polyfill全部载入；</p>
+<p><code>corejs</code>指示corejs的次要版本，当<code>@babel/preset-env</code>中的corejs不支持某种polyfill时便可以使用指定版本的polyfill；corejs默认不对提案做polyfill，所以这是可选项，这里我默认把它加上（我也不知道有什么影响，先以防万一用到）</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;presets&quot;</span>: [</span><br><span class="line">    [</span><br><span class="line">      <span class="string">&quot;@babel/env&quot;</span>,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="attr">&quot;targets&quot;</span>: &#123;</span><br><span class="line">          <span class="attr">&quot;edge&quot;</span>: <span class="string">&quot;17&quot;</span>,</span><br><span class="line">          <span class="attr">&quot;firefox&quot;</span>: <span class="string">&quot;60&quot;</span>,</span><br><span class="line">          <span class="attr">&quot;chrome&quot;</span>: <span class="string">&quot;67&quot;</span>,</span><br><span class="line">          <span class="attr">&quot;safari&quot;</span>: <span class="string">&quot;11.1&quot;</span>,</span><br><span class="line">          <span class="attr">&quot;node&quot;</span>: <span class="string">&quot;current&quot;</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">&quot;useBuiltIns&quot;</span>: <span class="string">&quot;usage&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;corejs&quot;</span>: &#123;</span><br><span class="line">          <span class="attr">&quot;version&quot;</span>: <span class="string">&quot;3.9.1&quot;</span>,</span><br><span class="line">          <span class="attr">&quot;proposals&quot;</span>: <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注：</p>
+<p>写JavaScript库时建议用<code>@babel/plugin-transform-runitme + @babel/runtime-corejs3</code>，然后在babel.config.json中设置<code>&quot;useBuiltIns&quot;: false</code>然后删除紧接着的corejs设置；</p>
+<p>具体这两种poly fill的差别可以查看以下两个博文，非常仔细且易于理解</p>
+<p><a class="link"   href="https://blog.liuyunzhuge.com/2019/09/04/babel%E8%AF%A6%E8%A7%A3%EF%BC%88%E4%BA%94%EF%BC%89-polyfill%E5%92%8Cruntime/" >babel详解（五）:polyfill和runtime<i class="fas fa-external-link-alt"></i></a></p>
+<p><a class="link"   href="https://segmentfault.com/a/1190000021188054" >@babel/preset-env 与@babel/plugin-transform-runtime 使用及场景区别<i class="fas fa-external-link-alt"></i></a></p>
+<p>首先安装这两个插件：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install --save-dev @babel/plugin-transform-runitme</span><br><span class="line">npm install --save @babel/runtime-corejs3</span><br></pre></td></tr></table></figure>
+
+<p>在plugins中添加插件<code>@babel/plugin-transform-runitme</code>，这里的设置<code>&quot;corejs&quot;: 3</code>告诉babel我要使用``@babel/runtime-corejs3`来为我polyfill啦</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">&quot;plugins&quot;: [</span><br><span class="line">  [<span class="string">&quot;@babel/plugin-transform-runtime&quot;</span>,</span><br><span class="line">    &#123;</span><br><span class="line">    	<span class="attr">&quot;corejs&quot;</span>: <span class="number">3</span></span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p>最后别忘了提醒开发者在自己的项目中安装<code>@babel/runtime-corejs3</code>，可以在<code>perDependencies</code>添加。</p>
+<h4 id="eslint-babel：支持最新语法的eslint"><a href="#eslint-babel：支持最新语法的eslint" class="headerlink" title="eslint + babel：支持最新语法的eslint"></a>eslint + babel：支持最新语法的eslint</h4><p>到这里你已经可以发现，当你写最新的代码的时候，比如类私有域（最新的提案）的时候eslint提示暂不支持，这时就需要babel来帮忙，将eslint的解析器设置为<code>@babel/parser</code>让eslint支持babel合法的语法。</p>
+<p>首先安装支持的js类私有域的babel插件和babel-eslint解析器</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install --save-dev @babel/eslint-parser @babel/plugin-proposal-class-properties @babel/plugin-proposal-private-methods</span><br></pre></td></tr></table></figure>
+
+<p>然后在eslint配置文件（.eslintrc.js）中添加插件和解析器</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">parser: <span class="string">&#x27;@babel/parser&#x27;</span>,</span><br><span class="line">plugins: [<span class="string">&#x27;classPrivateProperties&#x27;</span>, <span class="string">&#x27;classPrivateMethods&#x27;</span>],</span><br></pre></td></tr></table></figure>
+
+<p>同样的在babel也需要转换这部分代码，所以在babel.config.json也需要添加对应的插件</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">&quot;plugins&quot;: [</span><br><span class="line">  &quot;@babel/plugin-proposal-class-properties&quot;,</span><br><span class="line">  <span class="string">&quot;@babel/plugin-proposal-private-methods&quot;</span></span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p>可以参考一下此时完整的eslint文件</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  env: &#123;</span><br><span class="line">    browser: <span class="literal">true</span>,</span><br><span class="line">    es2021: <span class="literal">true</span>,</span><br><span class="line">    node: <span class="literal">true</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="keyword">extends</span>: [</span><br><span class="line">    <span class="string">&#x27;airbnb-base&#x27;</span>,</span><br><span class="line">  ],</span><br><span class="line">  parser: <span class="string">&#x27;@babel/parser&#x27;</span>,</span><br><span class="line">  plugins: [<span class="string">&#x27;classPrivateProperties&#x27;</span>, <span class="string">&#x27;classPrivateMethods&#x27;</span>],</span><br><span class="line">  parserOptions: &#123;</span><br><span class="line">    ecmaVersion: <span class="number">12</span>,</span><br><span class="line">    sourceType: <span class="string">&#x27;module&#x27;</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  rules: &#123;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>此时我们的eslint和babel都支持类私有域的lint和转换了</p>
+<h4 id="webpack"><a href="#webpack" class="headerlink" title="webpack"></a>webpack</h4><p>如今webpack + babel已经是很多npm项目的标配了，</p>
+<p>这里安装webpack的目的是将我们的源码以umd的形式打包成一个文件，方便浏览器引入；同时也支持amd和commonjs的方式引入。</p>
+<p>首先安装webpack的核心包</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install --save-dev webpack webpack-cli</span><br></pre></td></tr></table></figure>
+
+<p>如果你需要打包的同时分析打包文件各个依赖的大小，可以安装<code>webpack-bundle-analyzer</code>这个插件</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install --save-dev webpack-bundle-analyzer</span><br></pre></td></tr></table></figure>
+
+<p>为了让我们的webpack在打包的时候自动使用babel转译js代码，需要安装一个babel-loader，如何使用我们将稍后使用</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install --save-dev babel-loader</span><br></pre></td></tr></table></figure>
+
+<p>然后手动创建一个webpack.config.js</p>
+<p>配置如下，我们稍后做一下讲解</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> BundleAnalyzerPlugin = <span class="built_in">require</span>(<span class="string">&#x27;webpack-bundle-analyzer&#x27;</span>).BundleAnalyzerPlugin;</span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  entry: <span class="string">&#x27;./src/hxol/index.js&#x27;</span>,</span><br><span class="line">  output: &#123;</span><br><span class="line">    path: path.resolve(__dirname, <span class="string">&#x27;dist&#x27;</span>),</span><br><span class="line">    filename: <span class="string">&#x27;hxol.js&#x27;</span>,</span><br><span class="line">    library: <span class="string">&#x27;hxol&#x27;</span>,</span><br><span class="line">    libraryTarget: <span class="string">&#x27;umd&#x27;</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="built_in">module</span>: &#123;</span><br><span class="line">    rules: [</span><br><span class="line">      &#123;</span><br><span class="line">        test: <span class="regexp">/\.m?js/</span>,</span><br><span class="line">        exclude: <span class="regexp">/(node_modules)/</span>,</span><br><span class="line">        use: &#123;</span><br><span class="line">          loader: <span class="string">&#x27;babel-loader&#x27;</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">      &#125;,</span><br><span class="line">    ],</span><br><span class="line">  &#125;,</span><br><span class="line">  plugins: [</span><br><span class="line">    <span class="keyword">new</span> BundleAnalyzerPlugin(),</span><br><span class="line">  ],</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>entry是程序的入口，很好理解；我们可以将我们需要打包的文件在index.js中import再export出来；webpack会根据依赖自动打包</li>
+<li>output是文件的输出位置和格式<ul>
+<li>path指定输出路径</li>
+<li>filename指示输出文件名</li>
+<li>library指示我们暴露的全局变量的名称</li>
+<li>libraryTarget则指示我们输出的类型，这里使用umd，即amd，cmd，浏览器都可以导入</li>
+</ul>
+</li>
+<li>module指导webpack如何处理不同的模块，上面的规则规定我们转化js/mjs文件，排除node_modules文件夹并使用babel-loader转译</li>
+<li>plugins则是我们使用webpack可能会用的插件，这个<code>webpack-bundle-analyzer</code>可以在打包的时候生成一个各个依赖占用大小的报告</li>
+</ul>
+<h4 id="jest-单元测试"><a href="#jest-单元测试" class="headerlink" title="jest 单元测试"></a>jest 单元测试</h4><p>jest进行单元测试就比较简单了，它会自动寻找babel的配置文件并在测试的时候使用babel转译代码，但是jest会自动不转译node_modules中的代码，有转译需求的小伙伴创建一个jest.config.js配置文件，配置如下即可</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  <span class="comment">// 转换node_modules中的代码</span></span><br><span class="line">  transformIgnorePatterns: [],</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>当然jest很智能，但它发现babel有test相关的环境时会优先使用test环境去使用babel转译，这样我们就可以为jest定制一个babel配置，这不是必须的</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="string">&quot;env&quot;</span>: &#123;</span><br><span class="line">    <span class="string">&quot;test&quot;</span>: &#123;</span><br><span class="line">      <span class="string">&quot;presets&quot;</span>: [</span><br><span class="line">        [</span><br><span class="line">          <span class="string">&quot;@babel/env&quot;</span>,</span><br><span class="line">          &#123;</span><br><span class="line">            <span class="string">&quot;targets&quot;</span>: &#123;</span><br><span class="line">              <span class="string">&quot;node&quot;</span>: <span class="string">&quot;current&quot;</span></span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="string">&quot;useBuiltIns&quot;</span>: <span class="string">&quot;usage&quot;</span>,</span><br><span class="line">            <span class="string">&quot;corejs&quot;</span>: <span class="string">&quot;3.9.1&quot;</span></span><br><span class="line">          &#125;</span><br><span class="line">        ]</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h4><p>最后所有插件都安装好了，我们可以在src中写源码了，然后进行转译，打包，api生成。可以在package.json中配置这些脚本。</p>
+<ul>
+<li>转译：<code>babel your/src/path --out-dir your/dist/path</code>，babel会自动使用目录下的babel配置，这是npm publish后node项目引入时的文件地址</li>
+<li>打包：webpack –mode=production，webpack会自动使用目录下的webpack配置，这是浏览器可以引用的代码，当然node项目也可以引入</li>
+<li>生成API：jsdoc</li>
+<li>测试：jest，同样的，会自动使用jest配置文件</li>
+</ul>
+<h4 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h4><p>书写百变，其义自现。前端工程化的配置光看只能理解表面，多实践才能记住。</p>
+]]></content>
+      <tags>
+        <tag>前端工程化</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>防抖和节流的实现</title>
+    <url>/2021/03/04/%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81%E7%9A%84%E5%AE%9E%E7%8E%B0/</url>
+    <content><![CDATA[<h4 id="防抖"><a href="#防抖" class="headerlink" title="防抖"></a>防抖</h4><h5 id="什么是防抖？"><a href="#什么是防抖？" class="headerlink" title="什么是防抖？"></a>什么是防抖？</h5><p>防抖就是让一个函数延迟一定的时间n执行，若在n秒内再次触发这个函数，则重头计时</p>
+<h5 id="防抖的应用场景"><a href="#防抖的应用场景" class="headerlink" title="防抖的应用场景"></a>防抖的应用场景</h5><ul>
+<li><p>阻止用于频繁点击</p>
+<h5 id="实现一个防抖"><a href="#实现一个防抖" class="headerlink" title="实现一个防抖"></a>实现一个防抖</h5><p>未完待续。。。</p>
+</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>递归-字节206反转链表</title>
+    <url>/2021/03/10/%E9%80%92%E5%BD%92-%E5%AD%97%E8%8A%82206%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/</url>
+    <content><![CDATA[<p>递归的思想在代码中已经屡见不鲜，透过本题先熟悉递归的可解决的问题：</p>
+<ol>
+<li>1个大问题可以分解成2个子问题</li>
+<li>子问题的求解方式和大问题相同</li>
+<li>存在最小的子问题<br>大问题分解成子问题是递归调用来实现；<br>子问题的求解在归的过程中完成；<br>最小子问题就是递归调用结束的条件；因为此时已经递归调用到最底层，问题不可再分。<br>代码结构大体上可分为5个部分：<br>结束条件 =&gt; 递的过程做的事情 =&gt; 递归调用 =&gt; 归的过程做的事情 =&gt; 返回结果<img src="/2021/03/10/%E9%80%92%E5%BD%92-%E5%AD%97%E8%8A%82206%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8.jpg" class=""></li>
+</ol>
+]]></content>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+</search>
