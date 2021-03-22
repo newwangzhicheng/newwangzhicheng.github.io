@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="PepsiLuvCoco">
+    
+    <title>
+        
+            防抖之见解 |
+        
+        你好啊 陌生人
+    </title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="shortcut icon" href="/images/cute2.jpg">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.1/source/css/font-awesome.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh","path":"search.xml"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/cute.jpg","favicon":"/images/cute2.jpg","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"Try to keep coding."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"trigger":"auto","unescape":false,"preload":true},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":true},"lazyload":{"enable":false},"version":"3.4.1"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fas fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            <a class="logo-title" href="/">
+                你好啊 陌生人
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                HOME
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                ARCHIVES
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">HOME</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">ARCHIVES</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">防抖之见解</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/cute.jpg">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">PepsiLuvCoco</span>
+                        
+                            <span class="author-label">Lv2</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;2021-03-18 00:03:40
+    </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/JavaScript/">JavaScript</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h4 id="什么是防抖？"><a href="#什么是防抖？" class="headerlink" title="什么是防抖？"></a>什么是防抖？</h4><p>防抖是一个晦涩难懂的名词，先举个例子：有一只可爱的萤火虫，只要摸它一下，它在一秒之后就会闪一下；但是如果你以迅雷不及掩耳之势一秒摸它10次，那它在一秒后亮10次，可能要累死它。<br>于是它就想了一个办法，只要你摸了它一下之后下一秒内如果没有再碰它那他就会友好的亮灯；否则他会再等一秒，直到你在这一秒内不再摸它，它才会亮灯。</p>
+<p>在计算机中防抖就是在用户频繁触发一个事件的时候，无论触发多少次，只要事件之间时间间隔在规定的n秒内，那事件就不会执行直到n秒后执行最后一个事件，它把连续多次触发转换为触发最后一次。</p>
+<p>它可以这么表示：</p>
+<img src="/2021/03/18/%E9%98%B2%E6%8A%96%E4%B9%8B%E8%A7%81%E8%A7%A3/%E9%98%B2%E6%8A%96.jpg" class="">
+
+<h4 id="防抖的应用场景"><a href="#防抖的应用场景" class="headerlink" title="防抖的应用场景"></a>防抖的应用场景</h4><p>它优化了一些性能问题，计算机不必一直执行用户的操作，只要在最后一次触发。比如用户容易频繁触发的频繁点击鼠标的mousedown事件，频繁移动鼠标的mouseover事件；用户缩放窗口的window resize事件；<br>用户输入表单频繁触发的change事件。</p>
+<h4 id="Version-1-实现一个最简单的防抖函数"><a href="#Version-1-实现一个最简单的防抖函数" class="headerlink" title="Version 1 实现一个最简单的防抖函数"></a>Version 1 实现一个最简单的防抖函数</h4><p>防抖函数包装一个原始的函数fn，并设定一个延迟的时长delay，返回一个函数；</p>
+<p>这个防抖函数使用闭包和setTiemout实现；闭包是为了保存定时器timer；</p>
+<ul>
+<li>第一次执行的时候<code>clearTimeout(timer)</code>没什么用；所以首先创建一个定时器，它预期会在delay毫秒后执行fn函数</li>
+<li>如果delay毫秒内这个函数不再执行，那fn就会触发；</li>
+<li>如果delay毫秒内这个函数再次触发，<code>clearTimeout(timer)</code>会清除定时器，那么fn不再执行；重新创建一个定时器它会在这次触发的delay毫秒后执行fn函数，达到了防抖的目的。</li>
+</ul>
+<p>但是它没有考虑到this指向问题；如果fn包含参数那么这个参数也获取不到了。</p>
+<blockquote>
+<p>为什么this指向有问题？</p>
+<p>因为this指向的是它函数所在的执行环境，比如执行一个全局函数a，它的实际调用是golbalThis.a()；那么它的a的执行环境就是globalThis，this指向globalThis；</p>
+<p>回调函数同理，因为回调函数fn前面没有显性对象调用它，那么它的执行环境就是globalThis，this执行globalThis。所以要纠正this指向，不然fn内的this会发生错乱。</p>
+</blockquote>
+<blockquote>
+<p>为什么参数会丢失？</p>
+<p>以下面的setTimeout为例，当我们把fn作为第一个参数传入是实际上是传入了fn函数地址或者说引用，告诉setTimeout当执行开始执行回调的时候去执行fn函数吧，因为执行一个函数只需要给它加上一对括号即可，所以执行fn函数在表达上就是<code>fn()</code>，而我们的参数并没有传入，此时我们可以在外面包裹一层匿名函数并传入我们想要的参数，在下个版本的实现中可以看到。</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">debounceV1</span>(<span class="params">fn, delay</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> timer;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">clearTimeout</span>(timer);</span><br><span class="line">    timer = <span class="built_in">setTimeout</span>(fn, delay);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<center><img src="/2021/03/18/%E9%98%B2%E6%8A%96%E4%B9%8B%E8%A7%81%E8%A7%A3/v1.gif" class=""></center>
+
+<h4 id="Version-2-添加this指向，正确传入参数"><a href="#Version-2-添加this指向，正确传入参数" class="headerlink" title="Version 2 添加this指向，正确传入参数"></a>Version 2 添加this指向，正确传入参数</h4><p>下面的实现修正了Version 1的问题；</p>
+<p>我们首先确定什么是this指向正确，它的意义是：执行原始函数的时候，原始函数x内部的this指向的是原始函数的执行环境；当我们尝试对原始函数x做一些包装，赋予它一些额外的能力的时候（比如防抖的功能），包装后生成的函数y在执行x的时候我们期望x内部的this指向y所在的执行环境。</p>
+<p>由于箭头函数的没有自己的this和arguemnts，那么箭头函数内的this和arguments总是它外层环境的，相当于this确定了即<code>return function</code>中的this，这个函数暂且叫h。</p>
+<p>包裹前的函数是fn，包裹后的函数是h，当fn执行的时候fn内部的this即h的this，此时我们可以说this指向正确了；</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">debounceV2</span>(<span class="params">fn, delay</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> timer;</span><br><span class="line">  <span class="comment">// 包裹后的函数</span></span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">clearTimeout</span>(timer);</span><br><span class="line">    timer = <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      fn.apply(<span class="built_in">this</span>, <span class="built_in">arguments</span>);</span><br><span class="line">    &#125;, delay);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Version-3-第一次立即执行的防抖函数"><a href="#Version-3-第一次立即执行的防抖函数" class="headerlink" title="Version 3 第一次立即执行的防抖函数"></a>Version 3 第一次立即执行的防抖函数</h4><p>现在我们要对防抖函数做出一些定制，要求它第一次触发立即执行。如果这不是爱捣乱的用户，那他就不会受到延迟delay毫秒的惩罚；</p>
+<p>由于它本身就是一个闭包函数，可以存储私有变量，所以我们就可以用一个tag：first来标识是否是第一次触发函数。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">debounceV3</span>(<span class="params">fn, delay, immediate</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> first = <span class="literal">true</span>;</span><br><span class="line">  <span class="keyword">let</span> timer;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">clearTimeout</span>(timer);</span><br><span class="line">    <span class="keyword">if</span> (first &amp;&amp; immediate) &#123;</span><br><span class="line">      fn.apply(<span class="built_in">this</span>, <span class="built_in">arguments</span>);</span><br><span class="line">      first = <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    timer = <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      fn.apply(<span class="built_in">this</span>, <span class="built_in">arguments</span>);</span><br><span class="line">    &#125;, delay);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<center><img src="/2021/03/18/%E9%98%B2%E6%8A%96%E4%B9%8B%E8%A7%81%E8%A7%A3/v3.gif" class=""></center>
+
+<h4 id="Version-4-带有返回值的防抖函数"><a href="#Version-4-带有返回值的防抖函数" class="headerlink" title="Version 4 带有返回值的防抖函数"></a>Version 4 带有返回值的防抖函数</h4><p>因为防抖函数天生自带延迟，所以我们只要求在第一次执行的时候返回值</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">debounceV4</span>(<span class="params">fn ,delay, immediate</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> timer;</span><br><span class="line">  <span class="keyword">let</span> first = <span class="literal">true</span>;</span><br><span class="line">  <span class="keyword">let</span> result;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">clearTimeout</span>(timer);</span><br><span class="line">    <span class="keyword">if</span> (first &amp;&amp; immediate) &#123;</span><br><span class="line">      result = fn.apply(<span class="built_in">this</span>, <span class="built_in">arguments</span>);</span><br><span class="line">      first = <span class="literal">false</span>;</span><br><span class="line">      <span class="keyword">return</span> result;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      timer = <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        fn.apply(<span class="built_in">this</span>, <span class="built_in">arguments</span>);</span><br><span class="line">      &#125;, delay);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Version-5-可以取消的防抖函数"><a href="#Version-5-可以取消的防抖函数" class="headerlink" title="Version 5 可以取消的防抖函数"></a>Version 5 可以取消的防抖函数</h4><p>防抖函数a在使用<code>a.cancel()</code>后就能恢复成原来的函数，不防抖了;</p>
+<p>这一版中我们为返回的函数添加一个cancel方法，依旧使用私有变量+tag的模式；通过表示确定我们函数运行的模式</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">debounceV5</span>(<span class="params">fn ,delay, immediate</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> timer;</span><br><span class="line">  <span class="keyword">let</span> result;</span><br><span class="line">  <span class="keyword">let</span> cancel = <span class="literal">false</span>;</span><br><span class="line">  <span class="keyword">const</span> debounced = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">clearTimeout</span>(timer);</span><br><span class="line">    <span class="keyword">if</span> ((!timer &amp;&amp; immediate) || cancel) &#123;</span><br><span class="line">      result = fn.apply(<span class="built_in">this</span>, <span class="built_in">arguments</span>);</span><br><span class="line">      timer = <span class="literal">true</span>;</span><br><span class="line">      <span class="keyword">return</span> result;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      timer = <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        fn.apply(<span class="built_in">this</span>, <span class="built_in">arguments</span>);</span><br><span class="line">      &#125;, delay);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">  debounced.cancel = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    cancel = <span class="literal">true</span>;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">return</span> debounced;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<center><img src="/2021/03/18/%E9%98%B2%E6%8A%96%E4%B9%8B%E8%A7%81%E8%A7%A3/v5.gif" class=""></center>
+        </div>
+
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2021/03/22/%E8%8A%82%E6%B5%81%E4%B9%8B%E8%A7%81%E8%A7%A3/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">节流之见解</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2021/03/16/css%E4%B8%AD%E7%9A%84BEM/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">css中的BEM</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;Comments</i>
+    </div>
+    
+
+        
+            
+    <div class="valine-container">
+        <script data-pjax
+                src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+        <div id="vcomments"></div>
+        <script data-pjax>
+            function loadValine() {
+                new Valine({
+                    el: '#vcomments',
+                    appId: '44nsnXzkHuWasf6gWKb8P15X-gzGzoHsz',
+                    appKey: 'J27D9TyBbUCeVAt9sR9CvxLT',
+                    meta: ['nick', 'mail', 'link'],
+                    avatar: 'wavatar',
+                    enableQQ: true,
+                    placeholder: '轻喷👹',
+                    lang: 'zh'.toLowerCase()
+                });
+
+                function getAuthor(language) {
+                    switch (language) {
+                        case 'en':
+                            return 'Author';
+                        case 'zh-CN':
+                            return '博主';
+                        default:
+                            return 'Master';
+                    }
+                }
+
+                // Add "Author" identify
+                const getValineDomTimer = setInterval(() => {
+                    const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
+                    if (vcards.length > 0) {
+                        let author = 'PepsiLuvCoco';
+
+                        if (author) {
+                            for (let vcard of vcards) {
+                                const vnick_dom = vcard.querySelector('.vhead .vnick');
+                                const vnick = vnick_dom.innerHTML;
+                                if (vnick === author) {
+                                    vnick_dom.innerHTML = `${vnick} <span class="author">${getAuthor(KEEP.hexo_config.language)}</span>`
+                                }
+                            }
+                        }
+                        clearInterval(getValineDomTimer);
+                    } else {
+                        clearInterval(getValineDomTimer);
+                    }
+                }, 2000);
+            }
+
+            if ('true') {
+                const loadValineTimeout = setTimeout(() => {
+                    loadValine();
+                    clearTimeout(loadValineTimeout);
+                }, 1000);
+            } else {
+                window.addEventListener('DOMContentLoaded', loadValine);
+            }
+        </script>
+    </div>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2019</span>&nbsp;-&nbsp;
+            
+            2021&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">PepsiLuvCoco</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalview&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.1</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E9%98%B2%E6%8A%96%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">什么是防抖？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%98%B2%E6%8A%96%E7%9A%84%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">2.</span> <span class="nav-text">防抖的应用场景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Version-1-%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E6%9C%80%E7%AE%80%E5%8D%95%E7%9A%84%E9%98%B2%E6%8A%96%E5%87%BD%E6%95%B0"><span class="nav-number">3.</span> <span class="nav-text">Version 1 实现一个最简单的防抖函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Version-2-%E6%B7%BB%E5%8A%A0this%E6%8C%87%E5%90%91%EF%BC%8C%E6%AD%A3%E7%A1%AE%E4%BC%A0%E5%85%A5%E5%8F%82%E6%95%B0"><span class="nav-number">4.</span> <span class="nav-text">Version 2 添加this指向，正确传入参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Version-3-%E7%AC%AC%E4%B8%80%E6%AC%A1%E7%AB%8B%E5%8D%B3%E6%89%A7%E8%A1%8C%E7%9A%84%E9%98%B2%E6%8A%96%E5%87%BD%E6%95%B0"><span class="nav-number">5.</span> <span class="nav-text">Version 3 第一次立即执行的防抖函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Version-4-%E5%B8%A6%E6%9C%89%E8%BF%94%E5%9B%9E%E5%80%BC%E7%9A%84%E9%98%B2%E6%8A%96%E5%87%BD%E6%95%B0"><span class="nav-number">6.</span> <span class="nav-text">Version 4 带有返回值的防抖函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Version-5-%E5%8F%AF%E4%BB%A5%E5%8F%96%E6%B6%88%E7%9A%84%E9%98%B2%E6%8A%96%E5%87%BD%E6%95%B0"><span class="nav-number">7.</span> <span class="nav-text">Version 5 可以取消的防抖函数</span></a></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.1/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.1/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.1/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.1/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.1/source/js/dark-light-toggle.js"></script>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.1/source/js/local-search.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.1/source/js/code-copy.js"></script>
+
+
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.1/source/js/left-side-toggle.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.1/source/js/libs/anime.min.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.1/source/js/toc.js"></script>
+    
+</div>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.1/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        const pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>
